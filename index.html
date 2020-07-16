@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>monster-slayer</title>
+    <script src="https://unpkg.com/vue"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <div id="container1">
+            <div id="player">
+                <h1>Jogador</h1>
+                <div class="progress-bar">
+                    <div class="progress" :class="{danger: player.life < 20}" :style="{'width': player.life + '%'}">
+                    </div>
+                </div>
+                <p>{{ player.life }}%</p>
+            </div>
+            <div id="monster">
+                <h1>Monstro</h1>
+                <div class="progress-bar">
+                    <div class="progress" :class="{danger: monster.life < 20}" :style="{'width': monster.life + '%'}">
+                    </div>
+                </div>
+                <p>{{ monster.life }}%</p>
+            </div>
+        </div>
+        <div id="container2">
+            <button @click="reset" v-if="!startGame">iniciar novo jogo</button>
+            <template v-else="startGame">
+                <button @click="attack(false)">ataque</button>
+                <button @click="attack(true)">ataque especial</button>
+                <button @click="heal">curar</button>
+                <button @click="desist">desistir</button> 
+            </template>
+        </div>
+        <div id="container3" v-show="logs.length">
+            <ul>
+                <li v-for="log in logs" :style="{'background-color': log.color}">{{ log.whoAttacked }} {{ log.type}} {{ log.damage }}.</li>
+            </ul>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
